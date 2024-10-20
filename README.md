@@ -24,5 +24,4 @@ This project predicts customer behavior for a DVD rental business using deep lea
 ## How to Run
 1. Clone the repository:
    ```bash
-   git clone 
-   cd dvd-rental-prediction
+   git clone https://github.com/GOPINATHMANICKAM95/Customer-Behavior-in-DVD-Rental-Using-Deep-Learning.git
