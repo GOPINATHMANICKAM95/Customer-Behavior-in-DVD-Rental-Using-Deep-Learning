@@ -107,12 +107,12 @@ with col1:
 with col2:
     # Load sales data and movie category cluster
     try:
-        sales = pd.read_csv(r"Model/sales.csv")
-        Movie_Category_Cluster = pd.read_csv(r"Model/Movie_Category_Cluster.csv")
-        Actor = pd.read_csv(r"Model/Actor.csv")
-        actor_analys = pd.read_csv((r"Model/actor_analys.csv"))
+        sales = load('Model/sales.joblib')
+        Movie_Category_Cluster = load('Model/Movie_Category_Cluster.joblib')
+        Actor = load('Model/Actor.joblib')
+        actor_analys = load('Model/actor_analys.joblib')
     except Exception as e:
-        st.error(f"Error loading CSV files: {e}")
+        st.error(f"Error loading joblib files: {e}")
 
     def get_top_5_recommendations(customer_id, Movie_Category, sales):
         # Get the cluster for the given customer
