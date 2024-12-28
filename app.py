@@ -8,13 +8,13 @@ import pickle as pkl
 st.set_page_config(page_title="Gopinath Entertainment Retails", layout="wide")
 
 # Load models and encoders from pickle files
-with open(r'Model\demand_model_encoders.pkl', 'rb') as file:
+with open('Model\demand_model_encoders.pkl', 'rb') as file:
     encoders_app = pkl.load(file)
 
-with open(r'Model\Demand_Model_Count.pkl', 'rb') as file:
+with open('Model\Demand_Model_Count.pkl', 'rb') as file:
     Demand_Model_Count = pkl.load(file)
 
-with open(r'Model\Expected_Sales_Model.pkl', 'rb') as file:
+with open('Model\Expected_Sales_Model.pkl', 'rb') as file:
     Expected_Sales_Model = pkl.load(file)
 
 # Create two columns
