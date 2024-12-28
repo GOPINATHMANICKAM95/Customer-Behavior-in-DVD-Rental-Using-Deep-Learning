@@ -1,8 +1,8 @@
 streamlit
 pandas
 numpy
-datetime
-pickle
+python-dateutil
+pickle5
 scikit-learn
 seaborn
 matplotlib
