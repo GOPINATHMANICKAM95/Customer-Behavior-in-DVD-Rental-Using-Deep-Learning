@@ -8,13 +8,13 @@ import pickle as pkl
 st.set_page_config(page_title="Gopinath Entertainment Retails", layout="wide")
 
 # Load models and encoders from pickle files
-with open('Model\demand_model_encoders.pkl', 'rb') as file:
+with open('Model/demand_model_encoders.pkl', 'rb') as file:
     encoders_app = pkl.load(file)
 
-with open('Model\Demand_Model_Count.pkl', 'rb') as file:
+with open('Model/Demand_Model_Count.pkl', 'rb') as file:
     Demand_Model_Count = pkl.load(file)
 
-with open('Model\Expected_Sales_Model.pkl', 'rb') as file:
+with open('Model/Expected_Sales_Model.pkl', 'rb') as file:
     Expected_Sales_Model = pkl.load(file)
 
 # Create two columns
@@ -108,10 +108,10 @@ with col1:
 # Right column: Visitor Inputs
 with col2:
     # Load sales data and movie category cluster
-    sales = pd.read_csv(r"Model\sales.csv")
-    Movie_Category_Cluster = pd.read_csv(r"Model\Movie_Category_Cluster.csv")
-    Actor = pd.read_csv(r"Model\Actor.csv")
-    actor_analys = pd.read_csv((r"Model\actor_analys.csv"))
+    sales = pd.read_csv(r"Model/sales.csv")
+    Movie_Category_Cluster = pd.read_csv(r"Model/Movie_Category_Cluster.csv")
+    Actor = pd.read_csv(r"Model/Actor.csv")
+    actor_analys = pd.read_csv((r"Model/actor_analys.csv"))
 
     def get_top_5_recommendations(customer_id, Movie_Category, sales):
         # Get the cluster for the given customer
