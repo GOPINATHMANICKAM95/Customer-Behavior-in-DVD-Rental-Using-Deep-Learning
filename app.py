@@ -2,20 +2,18 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime, timedelta
 import numpy as np
-import pickle as pkl
+from joblib import load  # Use joblib instead of pickle
 
 # Set the page configuration
 st.set_page_config(page_title="Gopinath Entertainment Retails", layout="wide")
 
-# Load models and encoders from pickle files
-with open('Model/demand_model_encoders.pkl', 'rb') as file:
-    encoders_app = pkl.load(file)
-
-with open('Model/Demand_Model_Count.pkl', 'rb') as file:
-    Demand_Model_Count = pkl.load(file)
-
-with open('Model/Expected_Sales_Model.pkl', 'rb') as file:
-    Expected_Sales_Model = pkl.load(file)
+# Load models and encoders from joblib files
+try:
+    encoders_app = load('Model/demand_model_encoders.joblib')
+    Demand_Model_Count = load('Model/Demand_Model_Count.joblib')
+    Expected_Sales_Model = load('Model/Expected_Sales_Model.joblib')
+except Exception as e:
+    st.error(f"Error loading models or encoders: {e}")
 
 # Create two columns
 col1, col2 = st.columns(2)
@@ -108,10 +106,13 @@ with col1:
 # Right column: Visitor Inputs
 with col2:
     # Load sales data and movie category cluster
-    sales = pd.read_csv(r"Model/sales.csv")
-    Movie_Category_Cluster = pd.read_csv(r"Model/Movie_Category_Cluster.csv")
-    Actor = pd.read_csv(r"Model/Actor.csv")
-    actor_analys = pd.read_csv((r"Model/actor_analys.csv"))
+    try:
+        sales = pd.read_csv(r"Model/sales.csv")
+        Movie_Category_Cluster = pd.read_csv(r"Model/Movie_Category_Cluster.csv")
+        Actor = pd.read_csv(r"Model/Actor.csv")
+        actor_analys = pd.read_csv((r"Model/actor_analys.csv"))
+    except Exception as e:
+        st.error(f"Error loading CSV files: {e}")
 
     def get_top_5_recommendations(customer_id, Movie_Category, sales):
         # Get the cluster for the given customer
@@ -128,6 +129,7 @@ with col2:
         top_5_movies = movie_counts.head(5).index.tolist()
 
         return top_5_movies
+
     def get_top_5_actor(customer_id, Actor, actor_analys):
         # Step 1: Get the cluster for the given customer
         customer_cluster = Actor.loc[Actor['customer_id'] == customer_id, 'cluster'].values[0]
@@ -144,9 +146,6 @@ with col2:
 
         return top_5_actors
 
-    # Example usage:
-  
-    
     st.title("Visitor Information")    
     visitor_ids = sales["customer_id"].unique()  # Ensure unique IDs
     selected_visitor_id = st.selectbox("Select Visitor ID", visitor_ids)
@@ -156,6 +155,5 @@ with col2:
     st.write(top_5_movies)
 
     st.subheader("Fav Actor")
-    # Replace this placeholder with actual data retrieval logic
     top_5_actors = get_top_5_actor(selected_visitor_id, Actor, actor_analys)
     st.write(top_5_actors)
