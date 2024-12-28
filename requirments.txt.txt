@@ -1,6 +1,0 @@
-streamlit
-pandas
-numpy
-datetime
-pickle
-scikit-learn
